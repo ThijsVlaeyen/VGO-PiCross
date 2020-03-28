@@ -31,8 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -51,6 +53,7 @@
     <Compile Include="PiCross\PiCrossException.cs" />
     <Compile Include="PiCross\PiCrossFacade.cs" />
     <Compile Include="PiCross\InMemoryDatabase.cs" />
+    <Compile Include="PiCross\SquareConverter.cs" />
     <Compile Include="Utility\Chronometer.cs" />
     <Compile Include="PiCross\IPuzzleEditor.cs" />
     <Compile Include="PiCross\PuzzleEditor.cs">
