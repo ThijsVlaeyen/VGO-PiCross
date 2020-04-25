@@ -123,7 +123,7 @@
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Text="Congratulations!!" FontSize="50" HorizontalAlignment="Center"/>
                 <TextBlock Text="You completed the puzzle in:" FontSize="45" HorizontalAlignment="Center"/>
-                <TextBlock Text="WIP" FontSize="45" HorizontalAlignment="Center"/>
+                <TextBlock Text="{Binding Chronometer.TotalTime.Value}" FontSize="45" HorizontalAlignment="Center"/>
             </StackPanel>
             <Border.Visibility>
                 <Binding Path="IsSolved.Value">
@@ -172,7 +172,9 @@
                 </GroupBox>
 
                 <GroupBox Header="Time" Margin="10" Padding="10">
-                    <TextBlock Text="WIP"/>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Chronometer.TotalTime.Value}"/>
+                    </StackPanel>
                 </GroupBox>
 
                 <GroupBox Header="LeaderBoard" Margin="10" Padding="10">

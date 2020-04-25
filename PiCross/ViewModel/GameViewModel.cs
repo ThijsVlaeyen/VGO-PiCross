@@ -9,7 +9,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Utility;
 
 namespace ViewModel
@@ -33,17 +35,34 @@ namespace ViewModel
         public IGrid<PuzzleSquareViewModel> Grid { get; private set; }
         public MainViewModel Vm { get; private set; }
         public ICommand MenuCommand { get; }
-        public Chronometer chronometer { get; private set; }
+        public Chronometer Chronometer { get; private set; }
         public ICommand RestartCommand { get; }
         public ICommand LevelSelectionCommand { get; }
+        private DispatcherTimer timer;
+        public ICommand OnStart { get; }
 
         public void Start(MainViewModel viewModel, IPlayablePuzzle puzzle)
         {
             this.Vm = viewModel;
             this.PlayablePuzzle = puzzle;
             this.Grid = this.PlayablePuzzle.Grid.Map(puzzlesquare => new PuzzleSquareViewModel(puzzlesquare)).Copy();
-            this.chronometer = new Chronometer();
-            this.chronometer.Start();
+            this.Chronometer = new Chronometer();
+
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(250);
+            timer.Tick += (o, s) => 
+            {
+                if (IsSolved.Value)
+                {
+                    Chronometer.Pause();
+                } else
+                {
+                    Chronometer.Tick();
+                }
+            };
+            timer.Start();
+
+            this.Chronometer.Start();
         }
 
         public Cell<bool> IsSolved
@@ -57,7 +76,7 @@ namespace ViewModel
         {
             get
             {
-                return chronometer.TotalTime;
+                return Chronometer.TotalTime;
             }
         }
     }
