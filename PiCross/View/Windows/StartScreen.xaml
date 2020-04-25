@@ -7,9 +7,34 @@
         xmlns:controls ="clr-namespace:View.Controls"
         xmlns:converters ="clr-namespace:View.Converters"
         mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="10 10 10 10" />
+            <Setter Property="Width" Value="250" />
+            <Setter Property="Height" Value="50" />
+        </Style>
+    </UserControl.Resources>
+    
     <Grid>
-        <StackPanel>
-            <Button Content="Select Level" Command="{Binding LevelSelect}" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="5*" />
+        </Grid.RowDefinitions>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0,3" StartPoint="0,0">
+                <GradientStop Color="#19f1f6" Offset="0"/>
+                <GradientStop Color="#0e0a42" Offset="0.1"/>
+                <GradientStop Color="#fe008c" Offset="0.5"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <TextBlock Text="尸工－亡尺回己己" FontWeight="ExtraBold" FontSize="35" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        
+        <StackPanel Grid.Row="1" VerticalAlignment="Center">
+            <Button Content="Select Level" Command="{Binding LevelSelectCommand}"/>
+            <Button Content="High Scores" Command="{Binding HighScoresCommand}" />
+            <Button Content="Options" Command="{Binding OptionsCommand}" />
+            <Button Content="Close Game" Command="{Binding CloseCommand}" />
         </StackPanel>
     </Grid>
 </UserControl>

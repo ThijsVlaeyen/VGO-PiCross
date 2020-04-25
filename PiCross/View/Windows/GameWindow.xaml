@@ -16,19 +16,23 @@
             <GradientStop Color="#311540" Offset="0"/>
             <GradientStop Color="#160019" Offset="0.5"/>
         </LinearGradientBrush>
-        <converters:SquareConverter Empty="{StaticResource EmptyBrush}" Filled="{StaticResource FilledBrush}" Unknown="Gray" x:Key="squareConverter"/>
+        <LinearGradientBrush x:Key="UnknownBrush">
+            <GradientStop Color="#a6a6a6" Offset="0"/>
+            <GradientStop Color="#e6e6e6" Offset="0.5"/>
+        </LinearGradientBrush>
+        <converters:SquareConverter Empty="{StaticResource EmptyBrush}" Filled="{StaticResource FilledBrush}" Unknown="{StaticResource UnknownBrush}" x:Key="squareConverter"/>
         <converters:BoolConverter x:Key="boolConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="6*" />
+            <ColumnDefinition Width="5*" />
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
             <RowDefinition Height="6*" />
         </Grid.RowDefinitions>
-        <Grid.Background>   
+        <Grid.Background>
             <LinearGradientBrush EndPoint="0,3" StartPoint="0,0">
                 <GradientStop Color="#19f1f6" Offset="0"/>
                 <GradientStop Color="#0e0a42" Offset="0.1"/>
@@ -41,53 +45,94 @@
         </Border>
         <TextBlock Text="尸工－亡尺回己己" FontWeight="ExtraBold" FontSize="35" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-        <controls:PiCrossControl Grid.Row="1" x:Name="PicrossControl" VerticalAlignment="Center" HorizontalAlignment="Center" Grid="{Binding Grid}" RowConstraints="{Binding PlayablePuzzle.RowConstraints}" ColumnConstraints="{Binding PlayablePuzzle.ColumnConstraints}">
-            <controls:PiCrossControl.SquareTemplate>
-                <DataTemplate>
-                    <Button HorizontalAlignment="Center">
-                        <Button.Content>
-                            <Rectangle Width="32" Height="32" Stroke="Black" Fill="{Binding Contents.Value, Converter={StaticResource squareConverter}}"/>
-                        </Button.Content>
-                        <Button.InputBindings>
-                            <MouseBinding Gesture="LeftClick" Command="{Binding FillCommand}" CommandParameter="{Binding PuzzleSquare}" />
-                            <MouseBinding Gesture="RightClick" Command="{Binding EmptyCommand}" CommandParameter="{Binding PuzzleSquare}" />
-                        </Button.InputBindings>
-                    </Button>
-                </DataTemplate>
-            </controls:PiCrossControl.SquareTemplate>
-            <controls:PiCrossControl.RowConstraintsTemplate>
-                <DataTemplate>
-                    <ItemsControl ItemsSource="{Binding Values}" Background="#e6e6e6" Opacity="0.75">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Width="32" Height="32" Text="{Binding Value}" FontSize="15" TextAlignment="Center" Padding="5,5,5,5"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </DataTemplate>
-            </controls:PiCrossControl.RowConstraintsTemplate>
-            <controls:PiCrossControl.ColumnConstraintsTemplate>
-                <DataTemplate>
-                    <ItemsControl ItemsSource="{Binding Values}" Background="#e6e6e6" Opacity="0.75" >
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Vertical" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Width="32" Height="32" Text="{Binding Value}" FontSize="15" TextAlignment="Center" Padding="5,5,5,5"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </DataTemplate>
-            </controls:PiCrossControl.ColumnConstraintsTemplate>
-        </controls:PiCrossControl>
+        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="2">
+            <controls:PiCrossControl x:Name="PicrossControl" VerticalAlignment="Center" HorizontalAlignment="Center" Grid="{Binding Grid}" RowConstraints="{Binding PlayablePuzzle.RowConstraints}" ColumnConstraints="{Binding PlayablePuzzle.ColumnConstraints}">
+                <controls:PiCrossControl.SquareTemplate>
+                    <DataTemplate>
+                        <Button HorizontalAlignment="Center">
+                            <Button.Content>
+                                <Rectangle Width="32" Height="32" Stroke="Black" Fill="{Binding Contents.Value, Converter={StaticResource squareConverter}}"/>
+                            </Button.Content>
+                            <Button.InputBindings>
+                                <MouseBinding Gesture="LeftClick" Command="{Binding FillCommand}" CommandParameter="{Binding PuzzleSquare}" />
+                                <MouseBinding Gesture="RightClick" Command="{Binding EmptyCommand}" CommandParameter="{Binding PuzzleSquare}" />
+                                <MouseBinding Gesture="MiddleClick" Command="{Binding UnknownCommand}" CommandParameter="{Binding PuzzleSquare}" />
+                            </Button.InputBindings>
+                        </Button>
+                    </DataTemplate>
+                </controls:PiCrossControl.SquareTemplate>
+                <controls:PiCrossControl.RowConstraintsTemplate>
+                    <DataTemplate>
+                        <ItemsControl ItemsSource="{Binding Values}" Background="#e6e6e6" Opacity="0.75">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Width="32" Height="32" Text="{Binding Value}" FontSize="15" TextAlignment="Center" Padding="5,5,5,5">
+                                        <TextBlock.Foreground>
+                                            <Binding Path="IsSatisfied.Value">
+                                                <Binding.Converter>
+                                                    <converters:BoolConverter True="Green" False="Red"/>
+                                                </Binding.Converter>
+                                            </Binding>
+                                        </TextBlock.Foreground>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </DataTemplate>
+                </controls:PiCrossControl.RowConstraintsTemplate>
+                <controls:PiCrossControl.ColumnConstraintsTemplate>
+                    <DataTemplate>
+                        <ItemsControl ItemsSource="{Binding Values}" Background="#e6e6e6" Opacity="0.75" >
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Width="32" Height="32" Text="{Binding Value}" FontSize="15" TextAlignment="Center" Padding="5,5,5,5">
+                                        <TextBlock.Foreground>
+                                            <Binding Path="IsSatisfied.Value">
+                                                <Binding.Converter>
+                                                    <converters:BoolConverter True="Green" False="Red"/>
+                                                </Binding.Converter>
+                                            </Binding>
+                                        </TextBlock.Foreground>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </DataTemplate>
+                </controls:PiCrossControl.ColumnConstraintsTemplate>
+            </controls:PiCrossControl>
+            <Border.Visibility>
+                <Binding Path="IsSolved.Value">
+                    <Binding.Converter>
+                        <converters:BoolConverter False="{x:Static Visibility.Visible}" True="{x:Static Visibility.Hidden}" />
+                    </Binding.Converter>
+                </Binding>
+            </Border.Visibility>
+        </Border>
+
+        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="2">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Congratulations!!" FontSize="50" HorizontalAlignment="Center"/>
+                <TextBlock Text="You completed the puzzle in:" FontSize="45" HorizontalAlignment="Center"/>
+                <TextBlock Text="WIP" FontSize="45" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <Border.Visibility>
+                <Binding Path="IsSolved.Value">
+                    <Binding.Converter>
+                        <converters:BoolConverter True="{x:Static Visibility.Visible}" False="{x:Static Visibility.Hidden}" />
+                    </Binding.Converter>
+                </Binding>
+            </Border.Visibility>
+        </Border>
 
         <Border Grid.Column="1" Grid.RowSpan="2" BorderBrush="Black" BorderThickness="2">
             <StackPanel Width="auto" Height="auto" Background="#e6e6e6">
@@ -100,7 +145,14 @@
                         </Binding>
                     </TextBlock.Visibility>
                 </TextBlock>
-                <Button Content="Main menu" Command="{Binding MenuCommand}"/>
+
+                <GroupBox Header="Navigation" Margin="10" Padding="10">
+                    <StackPanel>
+                        <Button Content="Main Menu" Command="{Binding MenuCommand}"/>
+                        <Button Content="Level Selection" Command="{Binding LevelSelectionCommand}"/>
+                        <Button Content="Restart Game" Command="{Binding RestartCommand}" CommandParameter="{Binding PlayablePuzzle}" />
+                    </StackPanel>
+                </GroupBox>
 
                 <GroupBox Header="Controls" Margin="10" Padding="10">
                     <StackPanel>
@@ -112,7 +164,19 @@
                             <Rectangle Width="32" Height="32" Stroke="Black" Fill="{StaticResource FilledBrush}"/>
                             <TextBlock Text=" = Filled (Left-Click)" VerticalAlignment="Center" FontSize="16"/>
                         </WrapPanel>
+                        <WrapPanel>
+                            <Rectangle Width="32" Height="32" Stroke="Black" Fill="{StaticResource UnknownBrush}"/>
+                            <TextBlock Text=" = Unknown (Middle-Click)" VerticalAlignment="Center" FontSize="16"/>
+                        </WrapPanel>
                     </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="Time" Margin="10" Padding="10">
+                    <TextBlock Text="WIP"/>
+                </GroupBox>
+
+                <GroupBox Header="LeaderBoard" Margin="10" Padding="10">
+                    <TextBlock Text="WIP"/>
                 </GroupBox>
             </StackPanel>
         </Border>

@@ -14,5 +14,11 @@
         <DataTemplate DataType="{x:Type viewmodel:LevelSelectViewModel}">
             <windows:LevelSelectScreen/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:HighScoreViewModel}">
+            <windows:HighScoreScreen/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:OptionsViewModel}">
+            <windows:OptionsScreen/>
+        </DataTemplate>
     </Application.Resources>
 </Application>

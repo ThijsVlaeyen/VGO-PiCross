@@ -13,14 +13,16 @@ namespace ViewModel
         public StartScreenViewModel(MainViewModel mainWindowView)
         {
             this.vm = mainWindowView;
-            this.LevelSelect = new Command(() => this.vm.LevelSelect());
-            this.QuitCommand = new Command(() => this.vm.CloseWindow());
+            this.LevelSelectCommand = new Command(() => this.vm.LevelSelect());
+            this.CloseCommand = new Command(() => this.vm.CloseWindow());
+            this.HighScoresCommand = new Command(() => this.vm.HighScoreWindow());
+            this.OptionsCommand = new Command(() => this.vm.OptionsWindow());
         }
 
         private MainViewModel vm { get; }
-
-        public ICommand LevelSelect { get; }
-
-        public ICommand QuitCommand { get; }
+        public ICommand LevelSelectCommand { get; }
+        public ICommand CloseCommand { get; }
+        public ICommand HighScoresCommand { get; }
+        public ICommand OptionsCommand { get; }
     }
 }

@@ -17,6 +17,7 @@ namespace ViewModel
             this.PuzzleSquare = puzzleSquare;
             this.FillCommand = new FillCommand(this);
             this.EmptyCommand = new EmptyCommand(this);
+            this.UnknownCommand = new UnknownCommand(this);
         }
         public Cell<Square> Contents
         {
@@ -29,6 +30,7 @@ namespace ViewModel
         public IPlayablePuzzleSquare PuzzleSquare { get; }
         public ICommand FillCommand { get; }
         public ICommand EmptyCommand { get; }
+        public ICommand UnknownCommand { get; }
 
     }
 
@@ -77,5 +79,26 @@ namespace ViewModel
         }
     }
 
+    public class UnknownCommand : ICommand
+    {
+        private PuzzleSquareViewModel vm;
 
+        public UnknownCommand(PuzzleSquareViewModel puzzleSquareViewModel)
+        {
+            vm = puzzleSquareViewModel;
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public void Execute(object parameter)
+        {
+            var square = parameter as IPlayablePuzzleSquare;
+            square.Contents.Value = Square.UNKNOWN;
+        }
+    }
 }

@@ -49,7 +49,7 @@ namespace PiCross
                 return new Puzzle( columnConstraints: columnConstraints, rowConstraints: rowConstraints, grid: grid );
             }
         }
-
+        
         /// <summary>
         /// Creates a puzzle from constraints in string format.
         /// Constraints on the same row/column should be separated by a single space,

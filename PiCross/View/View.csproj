@@ -73,8 +73,14 @@
     <Compile Include="Windows\GameWindow.xaml.cs">
       <DependentUpon>GameWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\HighScoreScreen.xaml.cs">
+      <DependentUpon>HighScoreScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\LevelSelectScreen.xaml.cs">
       <DependentUpon>LevelSelectScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\OptionsScreen.xaml.cs">
+      <DependentUpon>OptionsScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\StartScreen.xaml.cs">
       <DependentUpon>StartScreen.xaml</DependentUpon>
@@ -102,7 +108,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\HighScoreScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\LevelSelectScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\OptionsScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -157,6 +171,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Resources\" />
     <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

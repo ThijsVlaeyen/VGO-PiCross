@@ -38,31 +38,7 @@ namespace ViewModel
 
         public void Execute(object parameter)
         {
-            var puzzle = Puzzle.FromRowStrings(this.RandomPuzzle(Int32.Parse(parameter as string)));
-            this.vm.StartGame(puzzle);
-        }
-        public String[] RandomPuzzle(int x)
-        {
-            Random rnd = new Random();
-            String[] output = new String[x];
-
-            for (int i = 0; i < x; i++)
-            {
-                String line = "";
-                for (int j = 0; j < x; j++)
-                {
-                    if (rnd.Next(3) == 0)
-                    {
-                        line += ".";
-                    }
-                    else
-                    {
-                        line += "x";
-                    }
-                }
-                output[i] = line;
-            }
-            return output;
+            this.vm.StartGame(Int32.Parse(parameter as string));
         }
     }
 }
