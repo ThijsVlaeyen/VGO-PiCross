@@ -6,23 +6,29 @@
              xmlns:local="clr-namespace:View.Windows"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="10 10 10 10" />
+            <Setter Property="Width" Value="250" />
+            <Setter Property="Height" Value="50" />
+        </Style>
+    </UserControl.Resources>
+    
     <Grid>
-        <StackPanel>
-            <Button Content="Easy (5x5)">
-                <Button.InputBindings>
-                    <MouseBinding Gesture="LeftClick" Command="{Binding LevelSelectCommand}" CommandParameter="5" />
-                </Button.InputBindings>
-            </Button>
-            <Button Content="Normal (7x7)">
-                <Button.InputBindings>
-                    <MouseBinding Gesture="LeftClick" Command="{Binding LevelSelectCommand}" CommandParameter="7" />
-                </Button.InputBindings>
-            </Button>
-            <Button Content="Hard (10x10)">
-                <Button.InputBindings>
-                    <MouseBinding Gesture="LeftClick" Command="{Binding LevelSelectCommand}" CommandParameter="10" />
-                </Button.InputBindings>
-            </Button>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="5*" />
+        </Grid.RowDefinitions>
+
+        <Border BorderBrush="Black" BorderThickness="2">
+            <StackPanel Width="auto" Height="auto" Background="#e6e6e6" Opacity="0.5"/>
+        </Border>
+        <TextBlock Text="Level Select" Style="{DynamicResource TextStyle}"/>
+        <StackPanel Grid.Row="1" VerticalAlignment="Center">
+            <Button Content="Easy (5x5)" Command="{Binding LevelSelectCommand}" CommandParameter="5"/>
+            <Button Content="Normal (7x7)" Command="{Binding LevelSelectCommand}" CommandParameter="7"/>
+            <Button Content="Hard (10x10)" Command="{Binding LevelSelectCommand}" CommandParameter="10"/>
+            <Button Content="Back To Main Menu" Command="{Binding MainMenuCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

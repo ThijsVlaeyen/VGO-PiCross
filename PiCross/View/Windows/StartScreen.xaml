@@ -20,21 +20,38 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="5*" />
         </Grid.RowDefinitions>
-        <Grid.Background>
-            <LinearGradientBrush EndPoint="0,3" StartPoint="0,0">
-                <GradientStop Color="#19f1f6" Offset="0"/>
-                <GradientStop Color="#0e0a42" Offset="0.1"/>
-                <GradientStop Color="#fe008c" Offset="0.5"/>
-            </LinearGradientBrush>
-        </Grid.Background>
+        <Border BorderBrush="Black" BorderThickness="2">
+            <StackPanel Width="auto" Height="auto" Background="#e6e6e6" Opacity="0.5"/>
+        </Border>
+        <TextBlock 
+            Text="Start Screen" 
+            Style="{DynamicResource TextStyle}">
+            
+            <TextBlock.Foreground>
+                <SolidColorBrush x:Name="Color" />
+            </TextBlock.Foreground>
 
-        <TextBlock Text="尸工－亡尺回己己" FontWeight="ExtraBold" FontSize="35" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        
+            <TextBlock.Triggers>
+                <EventTrigger RoutedEvent="TextBlock.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation 
+                                Storyboard.TargetName="Color"
+                                Storyboard.TargetProperty="Color"
+                                From="#f647f6" To="#311540" Duration="0:0:5"
+                                AutoReverse="True" RepeatBehavior="Forever" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </TextBlock.Triggers>
+
+        </TextBlock>
+
         <StackPanel Grid.Row="1" VerticalAlignment="Center">
             <Button Content="Select Level" Command="{Binding LevelSelectCommand}"/>
-            <Button Content="High Scores" Command="{Binding HighScoresCommand}" />
-            <Button Content="Options" Command="{Binding OptionsCommand}" />
+            <Button Content="Skins" Command="{Binding OptionsCommand}" />
             <Button Content="Close Game" Command="{Binding CloseCommand}" />
         </StackPanel>
     </Grid>
 </UserControl>
+    

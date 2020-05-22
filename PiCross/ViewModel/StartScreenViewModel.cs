@@ -1,6 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +19,6 @@ namespace ViewModel
             this.vm = mainWindowView;
             this.LevelSelectCommand = new Command(() => this.vm.LevelSelect());
             this.CloseCommand = new Command(() => this.vm.CloseWindow());
-            this.HighScoresCommand = new Command(() => this.vm.HighScoreWindow());
             this.OptionsCommand = new Command(() => this.vm.OptionsWindow());
         }
 

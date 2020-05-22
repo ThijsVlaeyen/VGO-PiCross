@@ -6,9 +6,26 @@
              xmlns:local="clr-namespace:View.Windows"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="10 10 10 10" />
+            <Setter Property="Width" Value="250" />
+            <Setter Property="Height" Value="50" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
-        <StackPanel>
-            <TextBlock Text="This is a placeholder for the options page"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="5*" />
+        </Grid.RowDefinitions>
+        <Border BorderBrush="Black" BorderThickness="2">
+            <StackPanel Width="auto" Height="auto" Background="#e6e6e6" Opacity="0.5"/>
+        </Border>
+        <TextBlock Text="Skins" Style="{DynamicResource TextStyle}"/>
+        <StackPanel Grid.Row="1" VerticalAlignment="Center">
+            <Button Content="Default" Command="{Binding DefaultCommand}"/>
+            <Button Content="Vaporwave" Command="{Binding VaporwaveCommand}"/>
+            <Button Content="JJBA" Command="{Binding JJBACommand}"/>
             <Button Content="Back To Main Menu" Command="{Binding MainMenuCommand}" />
         </StackPanel>
     </Grid>

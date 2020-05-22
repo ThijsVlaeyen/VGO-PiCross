@@ -32,18 +32,11 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="6*" />
         </Grid.RowDefinitions>
-        <Grid.Background>
-            <LinearGradientBrush EndPoint="0,3" StartPoint="0,0">
-                <GradientStop Color="#19f1f6" Offset="0"/>
-                <GradientStop Color="#0e0a42" Offset="0.1"/>
-                <GradientStop Color="#fe008c" Offset="0.5"/>
-            </LinearGradientBrush>
-        </Grid.Background>
 
         <Border BorderBrush="Black" BorderThickness="2">
             <StackPanel Width="auto" Height="auto" Background="#e6e6e6" Opacity="0.5"/>
         </Border>
-        <TextBlock Text="尸工－亡尺回己己" FontWeight="ExtraBold" FontSize="35" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Text="Pi-Cross" Style="{DynamicResource TextStyle}"/>
 
         <Border Grid.Row="1" BorderBrush="Black" BorderThickness="2">
             <controls:PiCrossControl x:Name="PicrossControl" VerticalAlignment="Center" HorizontalAlignment="Center" Grid="{Binding Grid}" RowConstraints="{Binding PlayablePuzzle.RowConstraints}" ColumnConstraints="{Binding PlayablePuzzle.ColumnConstraints}">
@@ -58,6 +51,15 @@
                                 <MouseBinding Gesture="RightClick" Command="{Binding EmptyCommand}" CommandParameter="{Binding PuzzleSquare}" />
                                 <MouseBinding Gesture="MiddleClick" Command="{Binding UnknownCommand}" CommandParameter="{Binding PuzzleSquare}" />
                             </Button.InputBindings>
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Style.Triggers>
+                                        <EventTrigger RoutedEvent="PreviewMouseDown">
+                                            <SoundPlayerAction Source="pack://application:,,,/Resources/HITMARKER.wav" />
+                                        </EventTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
                         </Button>
                     </DataTemplate>
                 </controls:PiCrossControl.SquareTemplate>
@@ -119,11 +121,11 @@
             </Border.Visibility>
         </Border>
 
-        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="2">
+        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="2" Background="#e6e6e6" Opacity="0.5">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="Congratulations!!" FontSize="50" HorizontalAlignment="Center"/>
-                <TextBlock Text="You completed the puzzle in:" FontSize="45" HorizontalAlignment="Center"/>
-                <TextBlock Text="{Binding Chronometer.TotalTime.Value}" FontSize="45" HorizontalAlignment="Center"/>
+                <TextBlock Text="Congratulations!!" Style="{DynamicResource TextStyle}"/>
+                <TextBlock Text="You completed the puzzle in:" Style="{DynamicResource TextStyle}"/>
+                <TextBlock Text="{Binding Chronometer.TotalTime.Value}" Style="{DynamicResource TextStyle}"/>
             </StackPanel>
             <Border.Visibility>
                 <Binding Path="IsSolved.Value">
@@ -136,16 +138,7 @@
 
         <Border Grid.Column="1" Grid.RowSpan="2" BorderBrush="Black" BorderThickness="2">
             <StackPanel Width="auto" Height="auto" Background="#e6e6e6">
-                <TextBlock Text="{Binding time}">
-                    <TextBlock.Visibility>
-                        <Binding Path="IsSolved.Value">
-                            <Binding.Converter>
-                                <converters:BoolConverter True="{x:Static Visibility.Visible}" False="{x:Static Visibility.Hidden}" />
-                            </Binding.Converter>
-                        </Binding>
-                    </TextBlock.Visibility>
-                </TextBlock>
-
+               
                 <GroupBox Header="Navigation" Margin="10" Padding="10">
                     <StackPanel>
                         <Button Content="Main Menu" Command="{Binding MenuCommand}"/>
@@ -177,9 +170,7 @@
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox Header="LeaderBoard" Margin="10" Padding="10">
-                    <TextBlock Text="WIP"/>
-                </GroupBox>
+                <Image Source="{DynamicResource Image}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </StackPanel>
         </Border>
     </Grid>

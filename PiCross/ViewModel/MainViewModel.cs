@@ -13,15 +13,17 @@ namespace ViewModel
     {
         public MainViewModel()
         {
-            Debug.WriteLine("Constructor Main viewmodel");
             this.ActiveWindow = new StartScreenViewModel(this);
             this.PiCrossFacade = new PiCrossFacade();
+            this.Theme = new Theme(this);
+            SetDefault();
         }
 
         public PiCrossFacade PiCrossFacade { get; }
         private object activeWindow;
         public Action ClosingAction { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
+        public Theme Theme { get; }
 
         public object ActiveWindow
         {
@@ -51,11 +53,6 @@ namespace ViewModel
             this.ClosingAction?.Invoke();
         }
 
-        public void HighScoreWindow()
-        {
-            this.ActiveWindow = new HighScoreViewModel(this);
-        }
-
         public void OptionsWindow()
         {
             this.ActiveWindow = new OptionsViewModel(this);
@@ -64,31 +61,22 @@ namespace ViewModel
         public void StartGame(int Size)
         {
 
-            this.ActiveWindow = new GameViewModel(this, Puzzle.FromRowStrings(this.RandomPuzzle(Size)));
+            this.ActiveWindow = new GameViewModel(this, Puzzle.Random(Size));
         }
 
-        public String[] RandomPuzzle(int x)
+        public void SetVaporwave()
         {
-            Random rnd = new Random();
-            String[] output = new String[x];
+            this.Theme.Vaporwave();
+        }
 
-            for (int i = 0; i < x; i++)
-            {
-                String line = "";
-                for (int j = 0; j < x; j++)
-                {
-                    if (rnd.Next(3) == 0)
-                    {
-                        line += ".";
-                    }
-                    else
-                    {
-                        line += "x";
-                    }
-                }
-                output[i] = line;
-            }
-            return output;
+        public void SetDefault()
+        {
+            this.Theme.Default();
+        }
+
+        public void SetJJBA()
+        {
+            this.Theme.JJBA();
         }
     }
 }

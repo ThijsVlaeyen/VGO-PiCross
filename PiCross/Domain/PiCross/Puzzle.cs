@@ -142,6 +142,30 @@ namespace PiCross
             return FromGrid( Square.CreateGrid( rows ) );
         }
 
+        public static Puzzle Random( int x)
+        {
+            Random rnd = new Random();
+            String[] output = new String[x];
+
+            for (int i = 0; i < x; i++)
+            {
+                String line = "";
+                for (int j = 0; j < x; j++)
+                {
+                    if (rnd.Next(3) == 0)
+                    {
+                        line += ".";
+                    }
+                    else
+                    {
+                        line += "x";
+                    }
+                }
+                output[i] = line;
+            }
+            return FromRowStrings(output);
+        }
+
         /// <summary>
         /// Creates an empty puzzle with the given size.
         /// The constraints are all zero, the solution is the empty grid.
